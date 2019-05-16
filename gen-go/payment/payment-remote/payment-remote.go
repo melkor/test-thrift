@@ -14,7 +14,7 @@ import (
         "strconv"
         "strings"
         "github.com/apache/thrift/lib/go/thrift"
-        "payment"
+        "github.com/melkor/test-thrift/payment"
 )
 
 
