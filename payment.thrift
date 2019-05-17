@@ -49,8 +49,8 @@ struct Credit {
 
 service Payment {
 
-   bool Authorize(),
+   bool Authorize(1:Credit card),
 
-   bool Pay(1:i32 amount)
+   bool Pay(1:Credit card, 2:i32 amount)
 
 }
