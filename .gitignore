@@ -1,13 +1,10 @@
 # Ignore binaries wherever they are
-/**/fizzbuzz-rest
+/**/payment-server
+/**/payment-client
 # Don't ignore folders with the same names as the binaries
-!/**/fizzbuzz-rest/
+!/**/payment-server/
+!/**/payment-client/
 # Ignore build directory
 /obj-x86_64-linux-gnu/
-# Ignore debian build files
-/debian/.debhelper/
-/debian/debhelper-build-stamp
-/debian/files
-/debian/fizzbuzz-rest*
 # Ignore swap files 
 /**/.*.swp
