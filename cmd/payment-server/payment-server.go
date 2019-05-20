@@ -11,7 +11,7 @@ import (
 
 var (
 	addr     = pflag.StringP("addr", "h", "localhost:9090", "Address to listen to")
-	protocol = pflag.String("protocol", "p", "json", "Specify the protocol (binary, compact, json, simplejson)")
+	protocol = pflag.StringP("protocol", "p", "json", "Specify the protocol (binary, compact, json, simplejson)")
 )
 
 func main() {
