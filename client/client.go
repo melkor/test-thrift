@@ -23,7 +23,9 @@ func New(addr, proto string) *Client {
 	}
 }
 
-func (c *Client) Init(transportFactory thrift.TTransportFactory) error {
+func (c *Client) Init() error {
+	transportFactory := thrift.NewTTransportFactory()
+
 	var transport thrift.TTransport
 	var err error
 
