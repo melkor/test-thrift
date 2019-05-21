@@ -41,7 +41,7 @@
 //include "time"
 
 struct CreditCard {
-  1: i32 number,
+  1: i64 number,
   2: i32 cryptogram,
   3: string holder,
   4: i64 date
