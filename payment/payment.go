@@ -40,7 +40,7 @@ var _ = bytes.Equal
 //  - Holder
 //  - Date
 type CreditCard struct {
-  Number int32 `thrift:"number,1" db:"number" json:"number"`
+  Number int64 `thrift:"number,1" db:"number" json:"number"`
   Cryptogram int32 `thrift:"cryptogram,2" db:"cryptogram" json:"cryptogram"`
   Holder string `thrift:"holder,3" db:"holder" json:"holder"`
   Date int64 `thrift:"date,4" db:"date" json:"date"`
@@ -51,7 +51,7 @@ func NewCreditCard() *CreditCard {
 }
 
 
-func (p *CreditCard) GetNumber() int32 {
+func (p *CreditCard) GetNumber() int64 {
   return p.Number
 }
 
@@ -80,7 +80,7 @@ func (p *CreditCard) Read(iprot thrift.TProtocol) error {
     if fieldTypeId == thrift.STOP { break; }
     switch fieldId {
     case 1:
-      if fieldTypeId == thrift.I32 {
+      if fieldTypeId == thrift.I64 {
         if err := p.ReadField1(iprot); err != nil {
           return err
         }
@@ -135,7 +135,7 @@ func (p *CreditCard) Read(iprot thrift.TProtocol) error {
 }
 
 func (p *CreditCard)  ReadField1(iprot thrift.TProtocol) error {
-  if v, err := iprot.ReadI32(); err != nil {
+  if v, err := iprot.ReadI64(); err != nil {
   return thrift.PrependError("error reading field 1: ", err)
 } else {
   p.Number = v
@@ -187,9 +187,9 @@ func (p *CreditCard) Write(oprot thrift.TProtocol) error {
 }
 
 func (p *CreditCard) writeField1(oprot thrift.TProtocol) (err error) {
-  if err := oprot.WriteFieldBegin("number", thrift.I32, 1); err != nil {
+  if err := oprot.WriteFieldBegin("number", thrift.I64, 1); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:number: ", p), err) }
-  if err := oprot.WriteI32(int32(p.Number)); err != nil {
+  if err := oprot.WriteI64(int64(p.Number)); err != nil {
   return thrift.PrependError(fmt.Sprintf("%T.number (1) field write error: ", p), err) }
   if err := oprot.WriteFieldEnd(); err != nil {
     return thrift.PrependError(fmt.Sprintf("%T write field end error 1:number: ", p), err) }
