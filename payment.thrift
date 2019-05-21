@@ -40,7 +40,7 @@
 // include "shared.thrift"
 //include "time"
 
-struct Credit {
+struct CreditCard {
   1: i32 number,
   2: i32 cryptogram,
   3: string holder,
@@ -49,8 +49,8 @@ struct Credit {
 
 service Payment {
 
-   bool Authorize(1:Credit card),
+   bool Authorize(1:CreditCard card),
 
-   bool Pay(1:Credit card, 2:i32 amount)
+   bool Pay(1:CreditCard card, 2:i32 amount)
 
 }
