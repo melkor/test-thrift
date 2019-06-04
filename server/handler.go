@@ -2,12 +2,12 @@ package server
 
 import (
 	"context"
+	"errors"
 	"math"
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
 	"github.com/melkor/test-thrift/payment"
-	"github.com/sirupsen/logrus"
 )
 
 type PaymentHandler struct {
@@ -20,36 +20,35 @@ func NewPaymentHandler() *PaymentHandler {
 func (p *PaymentHandler) Authorize(c context.Context, card *payment.CreditCard) (bool, error) {
 	spew.Dump(card)
 	if card.Number < int64(math.Pow10(15)) {
-		logrus.Infoln("number card is to small")
-		return false, nil
+		return logError("number card is to small")
 	}
 
 	if card.Number > int64(math.Pow10(16)) {
-		logrus.Infoln("number card is to big")
-		return false, nil
+		return logError("number card is to big")
 	}
 
 	if card.Cryptogram < int32(math.Pow10(2)) {
-		logrus.Infoln("crypto card is to small")
-		return false, nil
+		return logError("crypto card is to small")
 	}
 
 	if card.Cryptogram > int32(math.Pow10(3)) {
-		logrus.Infoln("crypto card is to big")
-		return false, nil
+		return logError("crypto card is to big")
 	}
 
 	if card.Holder == "" {
-		logrus.Infoln("name is empty")
-		return false, nil
+		return logError("name is empty")
 	}
 
 	if card.Date < time.Now().Unix() {
-		logrus.Infoln("card expired")
-		return false, nil
+		return logError("card expired")
 	}
 
 	return true, nil
+}
+
+func logError(message string) (bool, error) {
+	log(message)
+	return false, errors.New(message)
 }
 
 func (p *PaymentHandler) Pay(c context.Context, card *payment.CreditCard, amount int32) (bool, error) {
